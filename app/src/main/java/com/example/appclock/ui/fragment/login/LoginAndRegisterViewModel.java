@@ -16,7 +16,7 @@ import retrofit2.Response;
 
 public class LoginAndRegisterViewModel extends ViewModel {
     private MutableLiveData<List<AccountModel>> listAccount;
-    private List<AccountModel> list;
+    public List<AccountModel> list;
 
     public LoginAndRegisterViewModel(){
         listAccount = new MutableLiveData<>();
@@ -26,6 +26,7 @@ public class LoginAndRegisterViewModel extends ViewModel {
     public MutableLiveData<List<AccountModel>> getListAccount(){
         return listAccount;
     }
+
 
     public void getApiAccount(){
         SingletonRetrofit.getInstance().getListAccount().enqueue(new Callback<List<AccountModel>>() {

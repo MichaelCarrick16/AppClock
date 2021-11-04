@@ -4,11 +4,15 @@ package com.example.appclock.ui.fragment.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,9 +48,14 @@ public class LoginFragment extends Fragment {
 
     private TextView tvCreateLogin , tvLoginLogin;
     private EditText edtUsernameLogin , edtPasswordLogin;
+    private ImageView imvShowPasswordLogin;
     private LoginAndRegisterViewModel loginAndRegisterViewModel;
+
     // listDefault để lấy data trong LiveData bắn về khi Login
     private List<AccountModel> listDefault;
+
+    // Check xem showPassword dang o trang thai nao (mac dinh la dang an password di)
+    private Boolean checkShowPassword = false;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,12 +65,13 @@ public class LoginFragment extends Fragment {
     }
 
     private void initViews() {
-        loginAndRegisterViewModel = new ViewModelProvider(this).get(LoginAndRegisterViewModel.class);
+        loginAndRegisterViewModel = new ViewModelProvider(requireActivity()).get(LoginAndRegisterViewModel.class);
         signInButton = view.findViewById(R.id.sign_in_button);
         tvCreateLogin = view.findViewById(R.id.tv_create_login);
         tvLoginLogin = view.findViewById(R.id.tv_login_login);
         edtUsernameLogin = view.findViewById(R.id.edt_username_login);
         edtPasswordLogin = view.findViewById(R.id.edt_password_login);
+        imvShowPasswordLogin = view.findViewById(R.id.imv_show_password_login);
         handleGmail();
         showListAccountByLiveData();
 
@@ -109,6 +119,42 @@ public class LoginFragment extends Fragment {
             }
         });
 
+        // update length password de handle Visible of showPassword
+        edtPasswordLogin.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    int length = charSequence.toString().length();
+                    if(length==0){
+                        imvShowPasswordLogin.setVisibility(View.GONE);
+                    }else{
+                        imvShowPasswordLogin.setVisibility(View.VISIBLE);
+                    }
+            }
+        });
+
+        // handle click showPassword
+        imvShowPasswordLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(checkShowPassword==false){
+                    checkShowPassword = true;
+                    edtPasswordLogin.setInputType(InputType.TYPE_CLASS_TEXT);
+                }else{
+                    checkShowPassword = false;
+                    edtPasswordLogin.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                }
+            }
+        });
+
+
     }
 
     private void checkLogin() {
@@ -125,7 +171,7 @@ public class LoginFragment extends Fragment {
             startActivity(intent);
             clearEdittext();
         }else{
-            Log.e("abc","Login Fail");
+            Toast.makeText(getContext(),"Sai cmnr còn đâu =))",Toast.LENGTH_SHORT).show();
         }
     }
 

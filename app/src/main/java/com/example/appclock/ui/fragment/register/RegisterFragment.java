@@ -8,10 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -19,6 +21,8 @@ import androidx.navigation.Navigation;
 import com.example.appclock.R;
 import com.example.appclock.datasource.model.AccountModel;
 import com.example.appclock.ui.fragment.login.LoginAndRegisterViewModel;
+
+import java.util.List;
 
 public class RegisterFragment extends Fragment {
     private View view;
@@ -34,7 +38,7 @@ public class RegisterFragment extends Fragment {
     }
 
     private void initViews() {
-        loginAndRegisterViewModel = new ViewModelProvider(this).get(LoginAndRegisterViewModel.class);
+        loginAndRegisterViewModel = new ViewModelProvider(requireActivity()).get(LoginAndRegisterViewModel.class);
 
         edtUsernameRegister = view.findViewById(R.id.edt_username_register);
         edtPhoneRegister = view.findViewById(R.id.edt_phone_register);
@@ -60,11 +64,20 @@ public class RegisterFragment extends Fragment {
         tvRegisterRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(edtConfirmPasswordRegister.getText().toString().equals(edtPasswordRegister.getText().toString())){
-                    String username = edtUsernameRegister.getText().toString().trim();
-                    String password = edtPasswordRegister.getText().toString().trim();
-                    String phone = edtPhoneRegister.getText().toString().trim();
-                    String address = edtAddressRegister.getText().toString().trim();
+                String username = edtUsernameRegister.getText().toString().trim();
+                String password = edtPasswordRegister.getText().toString().trim();
+                String confirmPassword = edtConfirmPasswordRegister.getText().toString().trim();
+                String phone = edtPhoneRegister.getText().toString().trim();
+                String address = edtAddressRegister.getText().toString().trim();
+                if(username.equals("")||password.equals("")||confirmPassword.equals("")||phone.equals("")||address.equals("")){
+                    Toast.makeText(getContext(),"Cần điền đủ thông tin vào nhé !",Toast.LENGTH_SHORT).show();
+                }else if(checkUsername(username)){
+                    Toast.makeText(getContext(),"Xin là xin vĩnh biệt cụ vì đã trùng Username",Toast.LENGTH_SHORT).show();
+                }else if(phone.length()!=10){
+                    Toast.makeText(getContext(),"Số điện thoại phải có 10 số",Toast.LENGTH_SHORT).show();
+                }else if(confirmPassword.equals(password)==false){
+                    Toast.makeText(getContext(),"Confirm Password chắc chắn sai :v",Toast.LENGTH_SHORT).show();
+                }else{
                     AccountModel accountModel = new AccountModel(username,password,address,phone);
                     loginAndRegisterViewModel.postApiAccount(accountModel);
                     try {
@@ -73,11 +86,21 @@ public class RegisterFragment extends Fragment {
                         e.printStackTrace();
                     }
                     requireActivity().onBackPressed();
-                }else{
-                    Log.e("abc","Error");
                 }
+
+
 
             }
         });
+    }
+
+    private boolean checkUsername(String username) {
+        for(int i=0;i<loginAndRegisterViewModel.list.size();i++){
+            AccountModel accountModel = loginAndRegisterViewModel.list.get(i);
+            if(accountModel.getUsername().equals(username)){
+                return true;
+            }
+        }
+        return false;
     }
 }
