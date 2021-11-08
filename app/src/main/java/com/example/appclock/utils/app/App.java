@@ -4,6 +4,7 @@ import android.app.Application;
 
 public class App extends Application {
     private static App instance;
+    private Boolean checkLoginAccountorGmail = false;
 
 
     @Override
@@ -19,5 +20,11 @@ public class App extends Application {
         return instance;
     }
 
+    public Boolean getCheckLoginAccountorGmail() {
+        return checkLoginAccountorGmail;
+    }
 
+    public void setCheckLoginAccountorGmail(Boolean checkLoginAccountorGmail) {
+        this.checkLoginAccountorGmail = checkLoginAccountorGmail;
+    }
 }

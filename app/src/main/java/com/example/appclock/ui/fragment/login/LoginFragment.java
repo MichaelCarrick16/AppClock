@@ -2,7 +2,9 @@ package com.example.appclock.ui.fragment.login;
 
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -40,6 +42,9 @@ import com.google.android.gms.tasks.Task;
 import java.util.List;
 
 public class LoginFragment extends Fragment {
+    private static final String USER_NAME = "USER_NAME";
+    private static final String PASS_WORD = "PASS_WORD";
+    private static final String CHECK_SAVE = "CHECK_SAVE";
     private View view;
 
     private static final int RC_SIGN_IN = 0;
@@ -48,8 +53,11 @@ public class LoginFragment extends Fragment {
 
     private TextView tvCreateLogin , tvLoginLogin;
     private EditText edtUsernameLogin , edtPasswordLogin;
-    private ImageView imvShowPasswordLogin;
+    private ImageView imvShowPasswordLogin , imvSaveLogin;
     private LoginAndRegisterViewModel loginAndRegisterViewModel;
+
+    private SharedPreferences sharedPreferences ;
+    private SharedPreferences.Editor editor;
 
     // listDefault để lấy data trong LiveData bắn về khi Login
     private List<AccountModel> listDefault;
@@ -72,9 +80,25 @@ public class LoginFragment extends Fragment {
         edtUsernameLogin = view.findViewById(R.id.edt_username_login);
         edtPasswordLogin = view.findViewById(R.id.edt_password_login);
         imvShowPasswordLogin = view.findViewById(R.id.imv_show_password_login);
+        imvSaveLogin = view.findViewById(R.id.imv_save_login);
+        sharedPreferences = requireActivity().getSharedPreferences("Pref_Save_Login", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         handleGmail();
-        showListAccountByLiveData();
+//        showListAccountByLiveData();
+        saveAccount();
 
+
+    }
+
+    private void saveAccount() {
+        edtUsernameLogin.setText(sharedPreferences.getString(USER_NAME,""));
+        edtPasswordLogin.setText(sharedPreferences.getString(PASS_WORD,""));
+        Boolean check = sharedPreferences.getBoolean(CHECK_SAVE,false);
+        if(check){
+            imvSaveLogin.setImageResource(R.drawable.ic_checkbox_login);
+        }else{
+            imvSaveLogin.setImageResource(R.drawable.ic_uncheckbox_login);
+        }
     }
 
     private void showListAccountByLiveData() {
@@ -115,7 +139,10 @@ public class LoginFragment extends Fragment {
         tvLoginLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               checkLogin();
+                App.getInstance().setCheckLoginAccountorGmail(false);
+                Intent intent = new Intent(getContext(),MainAct.class);
+                startActivity(intent);
+//                checkLogin();
             }
         });
 
@@ -154,6 +181,27 @@ public class LoginFragment extends Fragment {
             }
         });
 
+        // handle Save Account
+        imvSaveLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Boolean check = sharedPreferences.getBoolean(CHECK_SAVE,false);
+                if(check){
+                    editor.putBoolean(CHECK_SAVE,false);
+                    editor.putString(USER_NAME,"");
+                    editor.putString(PASS_WORD,"");
+                    editor.apply();
+                    imvSaveLogin.setImageResource(R.drawable.ic_uncheckbox_login);
+                }else {
+                    editor.putBoolean(CHECK_SAVE,true);
+                    editor.putString(USER_NAME,edtUsernameLogin.getText().toString().trim());
+                    editor.putString(PASS_WORD,edtPasswordLogin.getText().toString().trim());
+                    editor.apply();
+                    imvSaveLogin.setImageResource(R.drawable.ic_checkbox_login);
+                }
+            }
+        });
+
 
     }
 
@@ -167,9 +215,12 @@ public class LoginFragment extends Fragment {
             }
         }
         if(resultCheckLogin){
+            App.getInstance().setCheckLoginAccountorGmail(false);
             Intent intent = new Intent(getContext(),MainAct.class);
             startActivity(intent);
-            clearEdittext();
+            if(sharedPreferences.getBoolean(CHECK_SAVE,false)==false){
+                clearEdittext();
+            }
         }else{
             Toast.makeText(getContext(),"Sai cmnr còn đâu =))",Toast.LENGTH_SHORT).show();
         }
@@ -203,6 +254,7 @@ public class LoginFragment extends Fragment {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             //Success
+            App.getInstance().setCheckLoginAccountorGmail(true);
             Intent intent = new Intent(getContext(), MainAct.class);
             startActivity(intent);
         } catch (ApiException e) {

@@ -3,16 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Hiep-PC/AndroidStudioProjects/AppClock/app/src/main/res/drawable/custom_bottom_navigation_color.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/Hiep-PC/AndroidStudioProjects/AppClock/app/src/main/res/drawable/custom_button_login.xml" value="0.3828125" />
         <entry key="..\:/Users/Hiep-PC/AndroidStudioProjects/AppClock/app/src/main/res/drawable/custom_button_register.xml" value="0.2421875" />
         <entry key="..\:/Users/Hiep-PC/AndroidStudioProjects/AppClock/app/src/main/res/drawable/custom_edittext_login.xml" value="0.3828125" />
+        <entry key="..\:/Users/Hiep-PC/AndroidStudioProjects/AppClock/app/src/main/res/drawable/ic_checkbox_login.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Hiep-PC/AndroidStudioProjects/AppClock/app/src/main/res/drawable/ic_uncheckbox_login.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/Hiep-PC/AndroidStudioProjects/AppClock/app/src/main/res/drawable/ic_wave.xml" value="0.3828125" />
-        <entry key="..\:/Users/Hiep-PC/AndroidStudioProjects/AppClock/app/src/main/res/layout/act_account.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Hiep-PC/AndroidStudioProjects/AppClock/app/src/main/res/layout/act_main.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/Hiep-PC/AndroidStudioProjects/AppClock/app/src/main/res/layout/act_account.xml" value="0.22" />
+        <entry key="..\:/Users/Hiep-PC/AndroidStudioProjects/AppClock/app/src/main/res/layout/act_main.xml" value="0.22" />
         <entry key="..\:/Users/Hiep-PC/AndroidStudioProjects/AppClock/app/src/main/res/layout/act_splash.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Hiep-PC/AndroidStudioProjects/AppClock/app/src/main/res/layout/custom_toolbar_main.xml" value="0.2515625" />
+        <entry key="..\:/Users/Hiep-PC/AndroidStudioProjects/AppClock/app/src/main/res/layout/frag_home.xml" value="0.2515625" />
+        <entry key="..\:/Users/Hiep-PC/AndroidStudioProjects/AppClock/app/src/main/res/layout/frag_info.xml" value="0.2515625" />
         <entry key="..\:/Users/Hiep-PC/AndroidStudioProjects/AppClock/app/src/main/res/layout/frag_login.xml" value="0.25" />
         <entry key="..\:/Users/Hiep-PC/AndroidStudioProjects/AppClock/app/src/main/res/layout/frag_menu.xml" value="0.22291666666666668" />
-        <entry key="..\:/Users/Hiep-PC/AndroidStudioProjects/AppClock/app/src/main/res/layout/frag_register.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Hiep-PC/AndroidStudioProjects/AppClock/app/src/main/res/layout/frag_product.xml" value="0.2515625" />
+        <entry key="..\:/Users/Hiep-PC/AndroidStudioProjects/AppClock/app/src/main/res/layout/frag_register.xml" value="0.25" />
+        <entry key="..\:/Users/Hiep-PC/AndroidStudioProjects/AppClock/app/src/main/res/menu/drawer_menu.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/Hiep-PC/AndroidStudioProjects/AppClock/app/src/main/res/menu/menu_bottom_navigation.xml" value="0.2515625" />
       </map>
     </option>
   </component>

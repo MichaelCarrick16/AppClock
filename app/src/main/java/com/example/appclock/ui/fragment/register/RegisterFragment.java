@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +48,7 @@ public class RegisterFragment extends Fragment {
         edtConfirmPasswordRegister = view.findViewById(R.id.edt_confirm_password_register);
         tvCancelRegister = view.findViewById(R.id.tv_cancel_register);
         tvRegisterRegister = view.findViewById(R.id.tv_register_register);
+
     }
 
     @Override
@@ -87,9 +89,6 @@ public class RegisterFragment extends Fragment {
                     }
                     requireActivity().onBackPressed();
                 }
-
-
-
             }
         });
     }
