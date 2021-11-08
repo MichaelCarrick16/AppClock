@@ -22,6 +22,5 @@ public class AccountAct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_account);
 
-
     }
 }

@@ -80,7 +80,7 @@ public class RegisterFragment extends Fragment {
                 }else if(confirmPassword.equals(password)==false){
                     Toast.makeText(getContext(),"Confirm Password chắc chắn sai :v",Toast.LENGTH_SHORT).show();
                 }else{
-                    AccountModel accountModel = new AccountModel(username,password,address,phone);
+                    AccountModel accountModel = new AccountModel(username,password,address,phone,"");
                     loginAndRegisterViewModel.postApiAccount(accountModel);
                     try {
                         Thread.sleep(2000L);

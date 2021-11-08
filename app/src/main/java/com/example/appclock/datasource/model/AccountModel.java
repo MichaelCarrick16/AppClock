@@ -5,12 +5,22 @@ public class AccountModel {
     private String password;
     private String address;
     private String phonenumber;
+    private String name;
 
-    public AccountModel(String username, String passWord, String addRess, String phoneNumber) {
+    public AccountModel(String username, String passWord, String addRess, String phoneNumber , String name) {
         this.username = username;
         this.password = passWord;
         this.address = addRess;
         this.phonenumber = phoneNumber;
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getUsername() {

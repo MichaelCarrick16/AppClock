@@ -7,6 +7,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,11 +19,13 @@ import com.example.appclock.utils.app.App;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainAct extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private ImageView imvMenuMain;
     private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +39,17 @@ public class MainAct extends AppCompatActivity {
         handleBottomNavigation();
         // handle open NavigationDrawer
         openNavigationDrawer();
+        // handle NavigationDrawer
+        handleNavigationDrawer();
 
 
+
+    }
+
+    private void handleNavigationDrawer() {
+        navigationView.setItemIconTintList(null);
+        NavController navController = Navigation.findNavController(this,R.id.nav_host_fragment_main);
+        NavigationUI.setupWithNavController(navigationView,navController);
     }
 
     private void openNavigationDrawer() {
@@ -53,6 +65,7 @@ public class MainAct extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         imvMenuMain = findViewById(R.id.imv_menu_main);
         drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.navigation_view);
     }
 
     private void handleBottomNavigation() {
