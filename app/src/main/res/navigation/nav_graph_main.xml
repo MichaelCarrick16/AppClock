@@ -17,5 +17,9 @@
         android:id="@+id/profileFragment"
         android:name="com.example.appclock.ui.fragment.profile.ProfileFragment"
         android:label="ProfileFragment"/>
+    <fragment
+        android:id="@+id/contactFragment"
+        android:name="com.example.appclock.ui.fragment.contact.ContactFragment"
+        android:label="ContactFragment" />
 
 </navigation>

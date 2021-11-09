@@ -4,20 +4,21 @@
         android:icon="@drawable/ic_home_drawer"
         android:title="Home"/>
 
-    <item android:id="@+id/notificationFragment"
-        android:icon="@drawable/ic_notification_drawer"
-        android:title="Notification"/>
+    <item android:id="@+id/productFragment"
+        android:icon="@drawable/ic_product_drawer"
+        android:title="Product"/>
+
+    <item android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_profile_drawer"
+        android:title="Profile"/>
 
     <item android:id="@+id/contactFragment"
         android:icon="@drawable/ic_contact_drawer"
         android:title="Contact"/>
 
-    <item android:id="@+id/settingFragment"
-        android:icon="@drawable/ic_settings_drawer"
-        android:title="Settings"/>
+    <item android:id="@+id/logoutFragment"
+        android:icon="@drawable/ic_logout_drawer"
+        android:title="Logout"/>
 
-    <item android:id="@+id/supportFragment"
-        android:icon="@drawable/ic_support_drawer"
-        android:title="Support"/>
 
 </menu>

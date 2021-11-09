@@ -84,7 +84,7 @@ public class LoginFragment extends Fragment {
         sharedPreferences = requireActivity().getSharedPreferences("Pref_Save_Login", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         handleGmail();
-        showListAccountByLiveData();
+//        showListAccountByLiveData();
         saveAccount();
 
 
@@ -139,10 +139,10 @@ public class LoginFragment extends Fragment {
         tvLoginLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                App.getInstance().setCheckLoginAccountorGmail(false);
-//                Intent intent = new Intent(getContext(),MainAct.class);
-//                startActivity(intent);
-                checkLogin();
+                App.getInstance().setCheckLoginAccountorGmail(false);
+                Intent intent = new Intent(getContext(),MainAct.class);
+                startActivity(intent);
+//                checkLogin();
             }
         });
 

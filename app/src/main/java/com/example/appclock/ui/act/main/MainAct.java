@@ -1,5 +1,6 @@
 package com.example.appclock.ui.act.main;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -10,6 +11,7 @@ import androidx.navigation.ui.NavigationUI;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -41,9 +43,20 @@ public class MainAct extends AppCompatActivity {
         openNavigationDrawer();
         // handle NavigationDrawer
         handleNavigationDrawer();
+        // handle logout
+        handleLogoutDrawer();
 
 
+    }
 
+    private void handleLogoutDrawer() {
+        navigationView.getMenu().findItem(R.id.logoutFragment).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                finish();
+                return false;
+            }
+        });
     }
 
     private void handleNavigationDrawer() {
