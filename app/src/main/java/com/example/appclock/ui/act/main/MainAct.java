@@ -1,22 +1,21 @@
 package com.example.appclock.ui.act.main;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.appclock.R;
+import com.example.appclock.ui.fragment.home.HomeViewModel;
 import com.example.appclock.utils.app.App;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -28,6 +27,8 @@ public class MainAct extends AppCompatActivity {
     private ImageView imvMenuMain;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+
+    private HomeViewModel homeViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,10 @@ public class MainAct extends AppCompatActivity {
         handleNavigationDrawer();
         // handle logout
         handleLogoutDrawer();
+
+        // Handle để bên Home không bị nhân bản data
+        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        homeViewModel.callAPIProductNews();
 
 
     }
