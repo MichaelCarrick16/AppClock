@@ -16,16 +16,19 @@ import retrofit2.Response;
 public class HomeViewModel extends ViewModel {
 
     private MutableLiveData<List<ProductModel>> listProductNewHome;
+    public List<ProductModel> listProductDefault;
 
     public HomeViewModel(){
         listProductNewHome = new MutableLiveData<>();
+        listProductDefault = new ArrayList<>();
     }
 
     public void callAPIProductNews(){
         SingletonRetrofit.getInstance().getListProductNews().enqueue(new Callback<List<ProductModel>>() {
             @Override
             public void onResponse(Call<List<ProductModel>> call, Response<List<ProductModel>> response) {
-                listProductNewHome.postValue(response.body());
+                listProductDefault = response.body();
+                listProductNewHome.postValue(listProductDefault);
             }
 
             @Override

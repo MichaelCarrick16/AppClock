@@ -8,21 +8,34 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.appclock.R;
 import com.example.appclock.datasource.model.ProductModel;
+import com.example.appclock.ui.fragment.home.OnActionCallbackHomeAdapterToHomeFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     private List<ProductModel> listProduct;
     private Context context;
+    private OnActionCallbackHomeAdapterToHomeFragment callback;
 
     public HomeAdapter(List<ProductModel> listProduct, Context context) {
         this.listProduct = listProduct;
         this.context = context;
+    }
+
+    public void setCallback(OnActionCallbackHomeAdapterToHomeFragment callback) {
+        this.callback = callback;
+    }
+
+    public void setNewData(List<ProductModel> listProduct){
+        this.listProduct = listProduct;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -38,6 +51,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             Glide.with(context).load(productModel.getImageProduct()).centerCrop().into(holder.imvLogoItemHome);
             holder.tvNameItemHome.setText(productModel.getNameProduct());
             holder.tvPriceItemHome.setText(String.valueOf(productModel.getPriceProduct())+"$");
+            holder.constraintLayoutItemHome.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    callback.onCallback(productModel);
+                }
+            });
     }
 
     @Override
@@ -49,6 +68,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         ImageView imvLogoItemHome = itemView.findViewById(R.id.imv_logo_item_home);
         TextView tvNameItemHome = itemView.findViewById(R.id.tv_name_item_home);
         TextView tvPriceItemHome = itemView.findViewById(R.id.tv_price_item_home);
+        ConstraintLayout constraintLayoutItemHome = itemView.findViewById(R.id.constraint_layout_item_home);
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
         }
