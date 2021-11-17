@@ -51,6 +51,13 @@ public class MainAct extends AppCompatActivity {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         homeViewModel.callAPIProductNews();
 
+        // Handle để load data luôn cho Product
+        homeViewModel.callAPITrademark();
+
+        // Handle de load data theo tung trademark
+        homeViewModel.callAPIListProductByTrademark();
+
+
 
     }
 

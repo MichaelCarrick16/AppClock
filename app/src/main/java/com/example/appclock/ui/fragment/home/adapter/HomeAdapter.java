@@ -16,7 +16,6 @@ import com.example.appclock.R;
 import com.example.appclock.datasource.model.ProductModel;
 import com.example.appclock.ui.fragment.home.OnActionCallbackHomeAdapterToHomeFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
