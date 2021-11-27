@@ -1,6 +1,8 @@
 package com.example.appclock.datasource.callapi;
 
 import com.example.appclock.datasource.model.AccountModel;
+import com.example.appclock.datasource.model.CartDetailModel;
+import com.example.appclock.datasource.model.CartModel;
 import com.example.appclock.datasource.model.ProductModel;
 import com.example.appclock.datasource.model.TrademarkModel;
 
@@ -8,6 +10,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -34,4 +37,13 @@ public interface ApiService {
 
     @GET("/product/news")
     Call<List<ProductModel>> getListProductNews();
+
+    @POST("/cart")
+    Call<CartModel> postCart(@Body CartModel cartModel);
+
+    @DELETE("/cart/{id}")
+    Call<CartModel> deleteCart(@Path("id") String id);
+
+    @POST("/cartdetail")
+    Call<List<CartDetailModel>> postListCartDetail(@Body List<CartDetailModel> list);
 }

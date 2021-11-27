@@ -2,6 +2,7 @@ package com.example.appclock.ui.fragment.product;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,10 +21,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.appclock.R;
+import com.example.appclock.datasource.model.CartDetailModel;
 import com.example.appclock.datasource.model.ProductModel;
 import com.example.appclock.ui.fragment.home.HomeViewModel;
 import com.example.appclock.ui.fragment.home.OnActionCallbackHomeAdapterToHomeFragment;
 import com.example.appclock.ui.fragment.product.adapter.ProductRolexAdapter;
+import com.example.appclock.utils.app.App;
+import com.example.appclock.utils.storage.Storage;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class ProductFragment extends Fragment implements OnActionCallbackHomeAdapterToHomeFragment {
     private View view;
@@ -68,6 +76,7 @@ public class ProductFragment extends Fragment implements OnActionCallbackHomeAda
         recyclerViewPiagetProduct.setAdapter(productPiagetAdapter);
 
 
+
     }
 
     @Override
@@ -97,6 +106,12 @@ public class ProductFragment extends Fragment implements OnActionCallbackHomeAda
         TextView tvPurchaseDialog = dialog.findViewById(R.id.tv_purchase_dialog);
         TextView tvDescription = dialog.findViewById(R.id.tv_description_dialog);
 
+        String idCart = App.getInstance().getCartLogin().getId();
+        int idProduct = productModel.getIdProduct();
+        String nameProduct = productModel.getNameProduct();
+        String pictureProduct = productModel.getImageProduct();
+        int priceProduct = productModel.getPriceProduct();
+
 
         Glide.with(getContext()).load(productModel.getImageProduct()).centerCrop().into(imvLogoDialog);
         tvNameDialog.setText(productModel.getNameProduct());
@@ -107,6 +122,20 @@ public class ProductFragment extends Fragment implements OnActionCallbackHomeAda
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
+            }
+        });
+
+        tvPurchaseDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int number = Integer.parseInt(edtNumberDialog.getText().toString().trim());
+                String idCartDetailByTimeCurrent = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
+
+                CartDetailModel cartDetailModel = new CartDetailModel(idCartDetailByTimeCurrent,idCart,idProduct,nameProduct,pictureProduct,number,priceProduct);
+                homeViewModel.listCartDetail.add(cartDetailModel);
+                homeViewModel.getListCartDetailUpdate().setValue(homeViewModel.listCartDetail);
+                Storage.getStorage().setListCartDetail(homeViewModel.listCartDetail);
+                Toast.makeText(getContext(),"Done!",Toast.LENGTH_SHORT).show();
             }
         });
 

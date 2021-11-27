@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.appclock.datasource.callapi.SingletonRetrofit;
+import com.example.appclock.datasource.model.CartDetailModel;
 import com.example.appclock.datasource.model.ProductModel;
 import com.example.appclock.datasource.model.TrademarkModel;
 
@@ -22,6 +23,8 @@ public class HomeViewModel extends ViewModel {
     private List<ProductModel> listRolex;
     private List<ProductModel> listHublot;
     private List<ProductModel> listPiaget;
+    public List<CartDetailModel> listCartDetail;
+    private MutableLiveData<List<CartDetailModel>> listCartDetailUpdate;
 
     public HomeViewModel(){
         listProductNewHome = new MutableLiveData<>();
@@ -29,6 +32,8 @@ public class HomeViewModel extends ViewModel {
         listRolex = new ArrayList<>();
         listHublot = new ArrayList<>();
         listPiaget = new ArrayList<>();
+        listCartDetail = new ArrayList<>();
+        listCartDetailUpdate = new MutableLiveData<>();
     }
 
     public void callAPIProductNews(){
@@ -118,4 +123,10 @@ public class HomeViewModel extends ViewModel {
     public List<ProductModel> getListPiaget() {
         return listPiaget;
     }
+
+    public MutableLiveData<List<CartDetailModel>> getListCartDetailUpdate() {
+        return listCartDetailUpdate;
+    }
+
+
 }

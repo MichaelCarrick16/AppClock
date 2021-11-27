@@ -48,6 +48,14 @@
             android:theme="@style/MyTheme">
 
         </activity>
+        <activity android:name=".ui.act.cartdetail.CartDetailAct"
+            android:theme="@style/MyTheme">
+
+        </activity>
+        <activity android:name=".ui.act.allproductorder.AllProductOrder"
+            android:theme="@style/MyTheme">
+
+        </activity>
     </application>
 
 </manifest>

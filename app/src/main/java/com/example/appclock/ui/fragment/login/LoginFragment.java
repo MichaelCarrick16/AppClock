@@ -28,7 +28,9 @@ import androidx.navigation.Navigation;
 
 
 import com.example.appclock.R;
+import com.example.appclock.datasource.callapi.SingletonRetrofit;
 import com.example.appclock.datasource.model.AccountModel;
+import com.example.appclock.datasource.model.CartModel;
 import com.example.appclock.ui.act.main.MainAct;
 import com.example.appclock.utils.app.App;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -39,7 +41,13 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginFragment extends Fragment {
     private static final String USER_NAME = "USER_NAME";
@@ -108,7 +116,6 @@ public class LoginFragment extends Fragment {
             @Override
             public void onChanged(List<AccountModel> accountModels) {
                listDefault = accountModels;
-               Log.e("abc",accountModels.size()+"");
             }
         });
     }
@@ -139,9 +146,6 @@ public class LoginFragment extends Fragment {
         tvLoginLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                App.getInstance().setCheckLoginAccountorGmail(false);
-//                Intent intent = new Intent(getContext(),MainAct.class);
-//                startActivity(intent);
                 checkLogin();
             }
         });
@@ -207,16 +211,34 @@ public class LoginFragment extends Fragment {
 
     private void checkLogin() {
         boolean resultCheckLogin = false;
+        AccountModel accountDefault = null;
         String username = edtUsernameLogin.getText().toString().trim();
         String password = edtPasswordLogin.getText().toString().trim();
         for(AccountModel accountModel : listDefault){
             if(accountModel.getUsername().equals(username)&&accountModel.getPassword().equals(password)){
                 resultCheckLogin = true;
+                accountDefault = accountModel;
             }
         }
         if(resultCheckLogin){
+            String idCartByTimeCurrent = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
+            CartModel cartModel = new CartModel(idCartByTimeCurrent,accountDefault.getPhonenumber(),accountDefault.getAddress(),accountDefault.getUsername());
+
             App.getInstance().setCheckLoginAccountorGmail(false);
             App.getInstance().setCheckIdLogin(username);
+            App.getInstance().setAccountLogin(accountDefault);
+            App.getInstance().setCartLogin(cartModel);
+
+            // Post Cart Server
+            SingletonRetrofit.getInstance().postCart(cartModel).enqueue(new Callback<CartModel>() {
+                @Override
+                public void onResponse(Call<CartModel> call, Response<CartModel> response) {
+                }
+                @Override
+                public void onFailure(Call<CartModel> call, Throwable t) {
+                }
+            });
+
             Intent intent = new Intent(getContext(),MainAct.class);
             startActivity(intent);
             if(sharedPreferences.getBoolean(CHECK_SAVE,false)==false){

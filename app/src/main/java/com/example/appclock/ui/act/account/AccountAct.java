@@ -12,6 +12,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.appclock.R;
+import com.example.appclock.utils.app.App;
 import com.google.android.material.navigation.NavigationView;
 
 public class AccountAct extends AppCompatActivity {
@@ -22,5 +23,12 @@ public class AccountAct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_account);
 
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        // Setup lại giá trị check Order bằng true
+        App.getInstance().setCheckButtonOrder(true);
     }
 }

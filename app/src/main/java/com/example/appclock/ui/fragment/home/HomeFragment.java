@@ -23,11 +23,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.appclock.R;
 import com.example.appclock.datasource.callapi.SingletonRetrofit;
+import com.example.appclock.datasource.model.CartDetailModel;
 import com.example.appclock.datasource.model.ProductModel;
 import com.example.appclock.datasource.model.TrademarkModel;
 import com.example.appclock.ui.fragment.home.adapter.HomeAdapter;
+import com.example.appclock.utils.app.App;
+import com.example.appclock.utils.storage.Storage;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import retrofit2.Call;
@@ -89,6 +94,11 @@ public class HomeFragment extends Fragment implements OnActionCallbackHomeAdapte
         TextView tvPurchaseDialog = dialog.findViewById(R.id.tv_purchase_dialog);
         TextView tvDescription = dialog.findViewById(R.id.tv_description_dialog);
 
+        String idCart = App.getInstance().getCartLogin().getId();
+        int idProduct = productModel.getIdProduct();
+        String nameProduct = productModel.getNameProduct();
+        String pictureProduct = productModel.getImageProduct();
+        int priceProduct = productModel.getPriceProduct();
 
         Glide.with(getContext()).load(productModel.getImageProduct()).centerCrop().into(imvLogoDialog);
         tvNameDialog.setText(productModel.getNameProduct());
@@ -99,6 +109,20 @@ public class HomeFragment extends Fragment implements OnActionCallbackHomeAdapte
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
+            }
+        });
+
+        tvPurchaseDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int number = Integer.parseInt(edtNumberDialog.getText().toString().trim());
+                String idCartDetailByTimeCurrent = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
+
+                CartDetailModel cartDetailModel = new CartDetailModel(idCartDetailByTimeCurrent,idCart,idProduct,nameProduct,pictureProduct,number,priceProduct);
+                homeViewModel.listCartDetail.add(cartDetailModel);
+                homeViewModel.getListCartDetailUpdate().setValue(homeViewModel.listCartDetail);
+                Storage.getStorage().setListCartDetail(homeViewModel.listCartDetail);
+                Toast.makeText(getContext(),"Done!",Toast.LENGTH_SHORT).show();
             }
         });
 
