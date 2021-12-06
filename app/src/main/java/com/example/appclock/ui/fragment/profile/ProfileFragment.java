@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.appclock.R;
 import com.example.appclock.datasource.model.AccountModel;
+import com.example.appclock.ui.act.main.MainAct;
 import com.example.appclock.utils.app.App;
 
 public class ProfileFragment extends Fragment {
@@ -42,7 +43,6 @@ public class ProfileFragment extends Fragment {
         edtPhoneProfile = view.findViewById(R.id.edt_phone_profile);
         edtAddressProfile = view.findViewById(R.id.edt_address_profile);
         tvSaveProfile = view.findViewById(R.id.tv_save_profile);
-
 
 
         // show data of Account Login

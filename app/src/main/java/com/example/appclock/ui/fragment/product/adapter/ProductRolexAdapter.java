@@ -32,6 +32,11 @@ public class ProductRolexAdapter extends RecyclerView.Adapter<ProductRolexAdapte
         this.callBack = callBack;
     }
 
+    public void setNewData(List<ProductModel> list){
+        listProductRolex = list;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.example.appclock.R;
 import com.example.appclock.datasource.model.CartDetailModel;
 import com.example.appclock.datasource.model.ProductModel;
+import com.example.appclock.ui.act.main.MainAct;
 import com.example.appclock.ui.fragment.home.HomeViewModel;
 import com.example.appclock.ui.fragment.home.OnActionCallbackHomeAdapterToHomeFragment;
 import com.example.appclock.ui.fragment.product.adapter.ProductRolexAdapter;
@@ -30,7 +31,9 @@ import com.example.appclock.utils.app.App;
 import com.example.appclock.utils.storage.Storage;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class ProductFragment extends Fragment implements OnActionCallbackHomeAdapterToHomeFragment {
     private View view;
@@ -38,6 +41,7 @@ public class ProductFragment extends Fragment implements OnActionCallbackHomeAda
     private TextView tvRolexProduct , tvHublotProduct , tvPiagetProduct;
     private RecyclerView recyclerViewRolexProduct , recyclerViewHublotProduct , recyclerViewPiagetProduct;
     private ProductRolexAdapter productRolexAdapter , productHublotAdapter , productPiagetAdapter;
+    private List<ProductModel> listRolex , listHublot , listPiaget ;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -57,19 +61,25 @@ public class ProductFragment extends Fragment implements OnActionCallbackHomeAda
         recyclerViewHublotProduct = view.findViewById(R.id.recycler_view_hublot_product);
         recyclerViewPiagetProduct = view.findViewById(R.id.recycler_view_piaget_product);
 
-        productRolexAdapter = new ProductRolexAdapter(homeViewModel.getListRolex(),getContext());
+        listRolex = homeViewModel.getListRolex();
+        listHublot = homeViewModel.getListHublot();
+        listPiaget = homeViewModel.getListPiaget();
+
+        productRolexAdapter = new ProductRolexAdapter(listRolex,getContext());
         productRolexAdapter.setCallBack(this);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2);
         recyclerViewRolexProduct.setLayoutManager(gridLayoutManager);
         recyclerViewRolexProduct.setAdapter(productRolexAdapter);
 
-        productHublotAdapter = new ProductRolexAdapter(homeViewModel.getListHublot(),getContext());
+
+
+        productHublotAdapter = new ProductRolexAdapter(listHublot,getContext());
         productHublotAdapter.setCallBack(this);
         gridLayoutManager = new GridLayoutManager(getContext(),2);
         recyclerViewHublotProduct.setLayoutManager(gridLayoutManager);
         recyclerViewHublotProduct.setAdapter(productHublotAdapter);
 
-        productPiagetAdapter = new ProductRolexAdapter(homeViewModel.getListPiaget(),getContext());
+        productPiagetAdapter = new ProductRolexAdapter(listPiaget,getContext());
         productPiagetAdapter.setCallBack(this);
         gridLayoutManager = new GridLayoutManager(getContext(),2);
         recyclerViewPiagetProduct.setLayoutManager(gridLayoutManager);

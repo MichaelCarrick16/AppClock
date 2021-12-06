@@ -11,9 +11,12 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,8 +43,9 @@ import retrofit2.Response;
 
 public class MainAct extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
-    private ImageView imvMenuMain , imvCartMain;
-    private TextView tvCountMain;
+    private ImageView imvMenuMain , imvCartMain , imvSearchMain;
+    private TextView tvCountMain ;
+    private EditText edtSearchMain;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
 
@@ -83,9 +87,24 @@ public class MainAct extends AppCompatActivity {
             }
         });
 
+        handleSearch();
+
 
 
     }
+
+    private void handleSearch() {
+        imvSearchMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Storage.getStorage().setTextSearch(edtSearchMain.getText().toString().trim());
+                Storage.getStorage().setListHublotDefault(new ArrayList<>());
+                Storage.getStorage().setListRolexDefault(new ArrayList<>());
+                Storage.getStorage().setListPiagetDefault(new ArrayList<>());
+            }
+        });
+    }
+
 
     private void showCartDetail() {
         imvCartMain.setOnClickListener(new View.OnClickListener() {
@@ -137,12 +156,14 @@ public class MainAct extends AppCompatActivity {
     }
 
     private void initViews() {
+        edtSearchMain = findViewById(R.id.edt_search_main);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         imvMenuMain = findViewById(R.id.imv_menu_main);
         imvCartMain = findViewById(R.id.imv_cart_main);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
         tvCountMain = findViewById(R.id.tv_count_main);
+        imvSearchMain = findViewById(R.id.imv_search_main);
     }
 
     private void handleBottomNavigation() {

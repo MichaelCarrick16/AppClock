@@ -26,6 +26,7 @@ import com.example.appclock.datasource.callapi.SingletonRetrofit;
 import com.example.appclock.datasource.model.CartDetailModel;
 import com.example.appclock.datasource.model.ProductModel;
 import com.example.appclock.datasource.model.TrademarkModel;
+import com.example.appclock.ui.act.main.MainAct;
 import com.example.appclock.ui.fragment.home.adapter.HomeAdapter;
 import com.example.appclock.utils.app.App;
 import com.example.appclock.utils.storage.Storage;
@@ -53,11 +54,13 @@ public class HomeFragment extends Fragment implements OnActionCallbackHomeAdapte
     }
 
     private void initViews() {
+
        homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
 
        recyclerViewHome = view.findViewById(R.id.recycler_view_home);
 
-       homeAdapter = new HomeAdapter(homeViewModel.listProductDefault,getContext());
+
+        homeAdapter = new HomeAdapter(homeViewModel.listProductDefault,getContext());
        homeAdapter.setCallback(this);
        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2);
        recyclerViewHome.setLayoutManager(gridLayoutManager);

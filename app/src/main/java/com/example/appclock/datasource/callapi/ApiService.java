@@ -46,4 +46,7 @@ public interface ApiService {
 
     @POST("/cartdetail")
     Call<List<CartDetailModel>> postListCartDetail(@Body List<CartDetailModel> list);
+
+    @GET("/cartdetail/{idCart}")
+    Call<List<CartDetailModel>> getListCartDetail(@Path("idCart") String idCart);
 }

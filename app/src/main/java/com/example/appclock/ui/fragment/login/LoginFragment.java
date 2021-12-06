@@ -245,7 +245,7 @@ public class LoginFragment extends Fragment {
                 clearEdittext();
             }
         }else{
-            Toast.makeText(getContext(),"Sai cmnr còn đâu =))",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(),"Bạn đã nhập sai!",Toast.LENGTH_SHORT).show();
         }
     }
 
